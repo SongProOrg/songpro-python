@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "songpro"
+description = "SongPro Parsing Library"
+readme = "README.md"
+license = { text = "MIT" }
+version = "0.1.0"
+requires-python = ">=3.8"
+authors = [
+  {name = "Brian Kelly", email = "polymonic@gmail.com"}
+]
+keywords = ["songpro", "chords", "music"]
+classifiers = []
+dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/SongProOrg/songpro-python"
+
+[tool.ruff]
+ignore = ["E501"]
+[tool.ruff.extend-per-file-ignores]
+"__init__.py" = ["F401"]
