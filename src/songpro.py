@@ -7,6 +7,7 @@ ATTRIBUTE_REGEX = "@(\\w*)=([^%]*)"
 CUSTOM_ATTRIBUTE_REGEX = "!(\\w*)=([^%]*)"
 SECTION_REGEX = "#\\s*([^$]*)"
 
+
 class SongPro:
     @staticmethod
     def parse(lines):
