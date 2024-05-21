@@ -4,6 +4,17 @@ from src.songpro import SongPro
 
 
 class TestSongPro(TestCase):
+
+    def test_parsing_custom_attributes(self):
+        song = SongPro.parse("""
+!difficulty=Easy
+!spotify_url=https://open.spotify.com/track/5zADxJhJEzuOstzcUtXlXv?si=SN6U1oveQ7KNfhtD2NHf9A
+""")
+
+        self.assertEqual(song.custom['difficulty'], 'Easy')
+        self.assertEqual(song.custom['spotify_url'],
+                         "https://open.spotify.com/track/5zADxJhJEzuOstzcUtXlXv?si=SN6U1oveQ7KNfhtD2NHf9A")
+
     def test_parsing_attributes(self):
         song = SongPro.parse("""
 @title=Bad Moon Rising

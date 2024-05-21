@@ -1,9 +1,13 @@
 import re
 
+ATTRIBUTE_REGEX = "@(\\w*)=([^%]*)"
+CUSTOM_ATTRIBUTE_REGEX = "!(\\w*)=([^%]*)"
+
 
 class Song:
     def __init__(self):
         self.title = "None"
+        self.custom = {}
 
 
 class SongPro:
@@ -14,12 +18,13 @@ class SongPro:
         for text in lines.split("\n"):
             if text.startswith("@"):
                 SongPro.process_attribute(song, text)
-
+            elif text.startswith("!"):
+                SongPro.process_custom_attribute(song, text)
         return song
 
     @staticmethod
     def process_attribute(song, text):
-        matches = re.search("@(\\w*)=([^%]*)", text)
+        matches = re.search(ATTRIBUTE_REGEX, text)
         key = matches.groups()[0]
         value = matches.groups()[1]
 
@@ -29,5 +34,10 @@ class SongPro:
         else:
             print("WARNING: Unknown attribute " + key)
 
+    @staticmethod
+    def process_custom_attribute(song, text):
+        matches = re.search(CUSTOM_ATTRIBUTE_REGEX, text)
+        key = matches.groups()[0]
+        value = matches.groups()[1]
 
-
+        song.custom[key] = value
