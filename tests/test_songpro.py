@@ -35,3 +35,13 @@ class TestSongPro(TestCase):
         self.assertEqual(song.year, "1975")
         self.assertEqual(song.album, "Foo Bar Baz")
         self.assertEqual(song.tuning, "Eb Standard")
+
+    def test_parsing_sections(self):
+        song = SongPro.parse("""
+# Verse 1
+# Chorus
+ """)
+
+        self.assertEqual(len(song.sections), 2)
+        self.assertEqual(song.sections[0].name, "Verse 1")
+        self.assertEqual(song.sections[1].name, "Chorus")
