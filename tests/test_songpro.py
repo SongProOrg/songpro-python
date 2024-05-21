@@ -1,22 +1,19 @@
-from unittest import TestCase
-
 from src.songpro import SongPro
 
 
-class TestSongPro(TestCase):
-
-    def test_parsing_custom_attributes(self):
-        song = SongPro.parse("""
+def test_parsing_custom_attributes():
+    song = SongPro.parse("""
 !difficulty=Easy
 !spotify_url=https://open.spotify.com/track/5zADxJhJEzuOstzcUtXlXv?si=SN6U1oveQ7KNfhtD2NHf9A
 """)
 
-        self.assertEqual(song.custom['difficulty'], 'Easy')
-        self.assertEqual(song.custom['spotify_url'],
-                         "https://open.spotify.com/track/5zADxJhJEzuOstzcUtXlXv?si=SN6U1oveQ7KNfhtD2NHf9A")
+    assert song.custom['difficulty'] == 'Easy'
+    assert song.custom[
+               'spotify_url'] == "https://open.spotify.com/track/5zADxJhJEzuOstzcUtXlXv?si=SN6U1oveQ7KNfhtD2NHf9A"
 
-    def test_parsing_attributes(self):
-        song = SongPro.parse("""
+
+def test_parsing_attributes():
+    song = SongPro.parse("""
 @title=Bad Moon Rising
 @artist=Creedence Clearwater Revival
 @capo=1st Fret
@@ -27,21 +24,22 @@ class TestSongPro(TestCase):
 @tuning=Eb Standard
 """)
 
-        self.assertEqual(song.title, "Bad Moon Rising")
-        self.assertEqual(song.artist, "Creedence Clearwater Revival")
-        self.assertEqual(song.capo, "1st Fret")
-        self.assertEqual(song.key, "C# Minor")
-        self.assertEqual(song.tempo, "120")
-        self.assertEqual(song.year, "1975")
-        self.assertEqual(song.album, "Foo Bar Baz")
-        self.assertEqual(song.tuning, "Eb Standard")
+    assert song.title == "Bad Moon Rising"
+    assert song.artist == "Creedence Clearwater Revival"
+    assert song.capo == "1st Fret"
+    assert song.key == "C# Minor"
+    assert song.tempo == "120"
+    assert song.year == "1975"
+    assert song.album == "Foo Bar Baz"
+    assert song.tuning == "Eb Standard"
 
-    def test_parsing_sections(self):
-        song = SongPro.parse("""
+
+def test_parsing_sections():
+    song = SongPro.parse("""
 # Verse 1
 # Chorus
- """)
+""")
 
-        self.assertEqual(len(song.sections), 2)
-        self.assertEqual(song.sections[0].name, "Verse 1")
-        self.assertEqual(song.sections[1].name, "Chorus")
+    assert len(song.sections) == 2
+    assert song.sections[0].name == "Verse 1"
+    assert song.sections[1].name == "Chorus"
