@@ -1,13 +1,9 @@
 import re
 
+from src.song import Song
+
 ATTRIBUTE_REGEX = "@(\\w*)=([^%]*)"
 CUSTOM_ATTRIBUTE_REGEX = "!(\\w*)=([^%]*)"
-
-
-class Song:
-    def __init__(self):
-        self.title = "None"
-        self.custom = {}
 
 
 class SongPro:
