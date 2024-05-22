@@ -10,6 +10,7 @@ def test(c):
 def build(c):
     c.run('python -m build')
 
+
 @task
 def upload_test(c):
     c.run('python -m twine upload --repository testpypi dist/*')
