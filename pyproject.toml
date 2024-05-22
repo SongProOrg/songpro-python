@@ -7,13 +7,17 @@ name = "songpro"
 description = "SongPro Parsing Library"
 readme = "README.md"
 license = { text = "MIT" }
-version = "0.1.0"
+version = "0.1.3"
 requires-python = ">=3.8"
 authors = [
   {name = "Brian Kelly", email = "polymonic@gmail.com"}
 ]
 keywords = ["songpro", "chords", "music"]
-classifiers = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 dependencies = []
 
 [project.urls]

@@ -8,7 +8,11 @@ def test(c):
 
 @task
 def build(c):
-    c.run('python -m build .')
+    c.run('python -m build')
+
+@task
+def upload_test(c):
+    c.run('python -m twine upload --repository testpypi dist/*')
 
 
 @task(pre=[test, build], default=True)

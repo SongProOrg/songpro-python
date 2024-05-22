@@ -1,14 +1,32 @@
 import re
 
-from src.line import Line
-from src.part import Part
-from src.section import Section
-from src.song import Song
-
 ATTRIBUTE_REGEX = "@(\\w*)=([^%]*)"
 CUSTOM_ATTRIBUTE_REGEX = "!(\\w*)=([^%]*)"
 SECTION_REGEX = "#\\s*([^$]*)"
 CHORDS_AND_LYRICS_REGEX = "(\\[[\\w#b+/]+\\])?([^\\[]*)"
+
+
+class Line:
+    def __init__(self):
+        self.parts = []
+
+
+class Part:
+    def __init__(self):
+        self.chord = None
+        self.lyric = None
+
+
+class Section:
+    def __init__(self, name):
+        self.name = name
+        self.lines = []
+
+
+class Song:
+    def __init__(self):
+        self.custom = {}
+        self.sections = []
 
 
 class SongPro:
