@@ -134,3 +134,14 @@ def test_augmented_chords():
 """)
 
     assert song.sections[0].lines[0].parts[0].chord == "G+"
+
+
+def test_parsing_comments():
+    song = SongPro.parse("""
+# Comment
+
+> This is a comment.
+""")
+
+    assert len(song.sections) == 1
+    assert song.sections[0].lines[0].comment == "This is a comment."

@@ -5,10 +5,13 @@ CUSTOM_ATTRIBUTE_REGEX = "!(\\w*)=([^%]*)"
 SECTION_REGEX = "#\\s*([^$]*)"
 CHORDS_AND_LYRICS_REGEX = "(\\[[\\w#b+/]+\\])?([^\\[]*)"
 
+COMMENT_REGEX = ">\\s*([^$]*)"
+
 
 class Line:
     def __init__(self):
         self.parts = []
+        self.comment = None
 
 
 class Part:
@@ -86,6 +89,11 @@ class SongPro:
             song.sections.append(current_section)
 
         line = Line()
+
+        if text.startswith(">"):
+            matches = re.search(COMMENT_REGEX, text)
+            comment = matches.groups()[0].strip()
+            line.comment = comment
 
         matches = re.findall(CHORDS_AND_LYRICS_REGEX, text, re.IGNORECASE)
 
