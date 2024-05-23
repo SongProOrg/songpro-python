@@ -12,6 +12,7 @@ class Line:
     def __init__(self):
         self.parts = []
         self.comment = None
+        self.tablature = None
 
 
 class Part:
@@ -90,7 +91,9 @@ class SongPro:
 
         line = Line()
 
-        if text.startswith(">"):
+        if text.startswith("|-"):
+            line.tablature = text
+        elif text.startswith(">"):
             matches = re.search(COMMENT_REGEX, text)
             comment = matches.groups()[0].strip()
             line.comment = comment

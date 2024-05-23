@@ -136,6 +136,19 @@ def test_augmented_chords():
     assert song.sections[0].lines[0].parts[0].chord == "G+"
 
 
+def test_parsing_tablature():
+    song = SongPro.parse("""
+# Riff
+
+|-3---5-|
+|---4---|
+""")
+
+    assert len(song.sections) == 1
+    assert song.sections[0].lines[0].tablature == "|-3---5-|"
+    assert song.sections[0].lines[1].tablature == "|---4---|"
+
+
 def test_parsing_comments():
     song = SongPro.parse("""
 # Comment
