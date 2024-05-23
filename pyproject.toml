@@ -10,7 +10,7 @@ license = { text = "MIT" }
 version = "0.1.3"
 requires-python = ">=3.8"
 authors = [
-  {name = "Brian Kelly", email = "polymonic@gmail.com"}
+    { name = "Brian Kelly", email = "polymonic@gmail.com" }
 ]
 keywords = ["songpro", "chords", "music"]
 classifiers = [
