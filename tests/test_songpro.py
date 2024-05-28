@@ -136,6 +136,21 @@ def test_augmented_chords():
     assert song.sections[0].lines[0].parts[0].chord == "G+"
 
 
+def test_parsing_chord_only_measures():
+    song = SongPro.parse("""
+# Instrumental
+
+| [A] [B] | [C] | [D] [E] [F] [G] |
+""")
+
+    assert len(song.sections) == 1
+    assert song.sections[0].lines[0].measures is not None
+    assert len(song.sections[0].lines[0].measures) == 3
+    assert song.sections[0].lines[0].measures[0].chords == ["A", "B"]
+    assert song.sections[0].lines[0].measures[1].chords == ["C"]
+    assert song.sections[0].lines[0].measures[2].chords == ["D", "E", "F", "G"]
+
+
 def test_parsing_tablature():
     song = SongPro.parse("""
 # Riff

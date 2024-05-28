@@ -1,11 +1,18 @@
 import re
 
-ATTRIBUTE_REGEX = "@(\\w*)=([^%]*)"
-CUSTOM_ATTRIBUTE_REGEX = "!(\\w*)=([^%]*)"
-SECTION_REGEX = "#\\s*([^$]*)"
-CHORDS_AND_LYRICS_REGEX = "(\\[[\\w#b+/]+\\])?([^\\[]*)"
+SECTION_REGEX = r'#\s*([^$]*)'
+ATTRIBUTE_REGEX = r'@(\w*)=([^%]*)'
+CUSTOM_ATTRIBUTE_REGEX = r'!(\w*)=([^%]*)'
+CHORDS_AND_LYRICS_REGEX = r'(\[[\w#b+/]+\])?([^\[]*)'
 
-COMMENT_REGEX = ">\\s*([^$]*)"
+MEASURES_REGEX = r'([[\w#b/\]+\]\s]+)[|]*'
+CHORDS_REGEX = r'\[([\w#b+/]+)\]?'
+COMMENT_REGEX = r'>\s*([^$]*)'
+
+
+class Measure:
+    def __init__(self):
+        self.chords = []
 
 
 class Line:
@@ -13,6 +20,7 @@ class Line:
         self.parts = []
         self.comment = None
         self.tablature = None
+        self.measures = None
 
 
 class Part:
@@ -93,20 +101,34 @@ class SongPro:
 
         if text.startswith("|-"):
             line.tablature = text
+
+        elif text.startswith("| "):
+            captures = re.findall(MEASURES_REGEX, text, re.I)
+            measures = []
+
+            for capture in captures:
+                chords = [chord[0] for chord in re.findall(CHORDS_REGEX, capture)]
+                measure = Measure()
+                measure.chords = chords
+                measures.append(measure)
+
+            line.measures = measures
+
         elif text.startswith(">"):
             matches = re.search(COMMENT_REGEX, text)
             comment = matches.groups()[0].strip()
             line.comment = comment
 
-        matches = re.findall(CHORDS_AND_LYRICS_REGEX, text, re.IGNORECASE)
+        else:
+            matches = re.findall(CHORDS_AND_LYRICS_REGEX, text, re.IGNORECASE)
 
-        for match in matches:
-            part = Part()
+            for match in matches:
+                part = Part()
 
-            part.chord = match[0].replace("[", "").replace("]", "")
-            part.lyric = match[1]
+                part.chord = match[0].replace("[", "").replace("]", "")
+                part.lyric = match[1]
 
-            if part.chord != "" or part.lyric != "":
-                line.parts.append(part)
+                if part.chord != "" or part.lyric != "":
+                    line.parts.append(part)
 
         current_section.lines.append(line)
