@@ -58,10 +58,6 @@ print(song.sections[1].name)
 
 After checking out the project, set up venv, install dependencies and run the default task that tests and builds the project:
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at <https://github.com/SongProOrg/songpro-python>.
-
 ```bash
 $ git clone git@github.com:SongProOrg/songpro-python.git
 $ cd songpro-python
@@ -71,6 +67,10 @@ $ pip install invoke build pytest twine
 $ invoke --list
 $ invoke
 ```
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at <https://github.com/SongProOrg/songpro-python>.
 
 ## License
 
